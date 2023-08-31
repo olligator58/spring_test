@@ -28,17 +28,39 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean insertEmployee(Employee employee) {
-        return false;
+    public boolean addEmployee(Employee employee) {
+        return employeeDao.addEmployee(employee);
+    }
+
+    @Override
+    public void insertEmployee(Employee employee) {
+        employeeDao.insertEmployee(employee);
     }
 
     @Override
     public boolean updateEmployee(Employee employee) {
-        return false;
+        return employeeDao.updateEmployee(employee);
     }
 
     @Override
     public boolean deleteEmployee(Employee employee) {
-        return false;
+        return employeeDao.deleteEmployee(employee);
+    }
+
+    @Override
+    public int deleteEmployeesStartingFromId(int fromId) {
+        return employeeDao.deleteEmployeesStartingFromId(fromId);
+    }
+
+    @Override
+    public int batchUpdate(List<Employee> employees) {
+        return employeeDao.batchUpdate(employees);
+//        return employeeDao.batchUpdate1(employees);
+//        return employeeDao.batchUpdate2(employees);
+    }
+
+    @Override
+    public int batchUpdate(List<Employee> employees, int batchSize) {
+        return employeeDao.batchUpdate(employees, batchSize);
     }
 }

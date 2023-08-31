@@ -12,10 +12,18 @@ public interface EmployeeService {
 
     List<Employee> getAllEmployees();
 
-    boolean insertEmployee(Employee employee);
+    boolean addEmployee(Employee employee);
+
+    void insertEmployee(Employee employee);
 
     boolean updateEmployee(Employee employee);
 
     boolean deleteEmployee(Employee employee);
+
+    int deleteEmployeesStartingFromId(int fromId);
+
+    int batchUpdate(List <Employee> employees);
+
+    int batchUpdate(List <Employee> employees, int batchSize);
 
 }

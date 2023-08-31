@@ -69,6 +69,11 @@ public class Employee {
         this.tasks = tasks;
     }
 
+    public void addTask(Task task) {
+        task.setEmployee(this);
+        tasks.add(task);
+    }
+
     @Override
     public String toString() {
         return "model.Employee{" +
