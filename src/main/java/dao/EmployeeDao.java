@@ -15,7 +15,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
@@ -42,7 +41,6 @@ public class EmployeeDao {
                 .usingGeneratedKeyColumns("id");
     }
 
-    @Transactional(readOnly = true)
     public Employee getEmployeeById(int id) {
         String sql = "select * from employee where id = ?";
         LOG.info("Выполняется запрос {}, id = {} ", sql, id);
@@ -54,7 +52,6 @@ public class EmployeeDao {
         }
     }
 
-    @Transactional(readOnly = true)
     public List<Employee> getEmployeesByMinSalary(int salary) {
         String sql = "select * from employee where salary >= :salary";
         MapSqlParameterSource params = new MapSqlParameterSource();
@@ -68,7 +65,6 @@ public class EmployeeDao {
         }
     }
 
-    @Transactional(readOnly = true)
     public List<Employee> getAllEmployees() {
         String sql = "select * from employee";
         LOG.info("Выполняется запрос {}", sql);
@@ -80,7 +76,6 @@ public class EmployeeDao {
         }
     }
 
-    @Transactional
     public boolean addEmployee(Employee employee) {
         boolean result;
         String sql = "insert into employee (name, occupation, salary, age, join_date) values " +
@@ -101,16 +96,13 @@ public class EmployeeDao {
         }
     }
 
-    @Transactional
     public void insertEmployee(Employee employee) {
         SqlParameterSource params = getMapSqlParameterSource(employee);
         LOG.info("Выполняется запрос на вставку, params = {}", params);
         Number newId = insertActor.executeAndReturnKey(params);
         employee.setId(newId.intValue());
-
     }
 
-    @Transactional
     public boolean updateEmployee(Employee employee) {
         String sql = "update employee set " +
                      "name = :name, " +
@@ -130,7 +122,6 @@ public class EmployeeDao {
         }
     }
 
-    @Transactional
     public boolean deleteEmployee(Employee employee) {
         String sql = "delete from employee where id = ?";
         LOG.info("Выполняется запрос {}, id = {}", sql, employee.getId());
@@ -142,7 +133,6 @@ public class EmployeeDao {
         }
     }
 
-    @Transactional
     public int deleteEmployeesStartingFromId(int fromId) {
         String sql = "delete from employee where id >= ?";
         LOG.info("Выполняется запрос {}, fromId = {}", sql, fromId);
@@ -154,7 +144,6 @@ public class EmployeeDao {
         }
     }
 
-    @Transactional
     public int batchUpdate(List<Employee> employees) {
         setEmployeesIds(employees);
         String sql = "insert into employee (id, name, occupation, salary, age, join_date) values " +
@@ -178,7 +167,6 @@ public class EmployeeDao {
         }
     }
 
-    @Transactional
     public int batchUpdate1(List<Employee> employees) {
         setEmployeesIds(employees);
         String sql = "insert into employee (id, name, occupation, salary, age, join_date) values " +
@@ -193,7 +181,6 @@ public class EmployeeDao {
         }
     }
 
-    @Transactional
     public int batchUpdate2(List<Employee> employees) {
         setEmployeesIds(employees);
         String sql = "insert into employee (id, name, occupation, salary, age, join_date) values " +
@@ -214,7 +201,6 @@ public class EmployeeDao {
         }
     }
 
-    @Transactional
     public int batchUpdate(List<Employee> employees, int batchSize) {
         setEmployeesIds(employees);
         String sql = "insert into employee (id, name, occupation, salary, age, join_date) values " +
