@@ -8,8 +8,14 @@ import javax.annotation.Resource;
 public class ServiceHelper {
     @Resource
     private EmployeeService employeeService;
+    @Resource
+    private EmployeeXmlService employeeXmlService;
 
     public EmployeeService getEmployeeService() {
         return employeeService;
+    }
+
+    public EmployeeXmlService getEmployeeXmlService() {
+        return employeeXmlService;
     }
 }

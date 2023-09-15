@@ -4,11 +4,10 @@ import dao.EmployeeDao;
 import domain.Employee;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.util.List;
 
-@Service("employeeService")
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Resource
     private EmployeeDao employeeDao;

@@ -6,8 +6,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import service.EmployeeService;
+import service.EmployeeXmlService;
 import service.ServiceHelper;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +20,9 @@ public class SpringRunner {
         ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
 //        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         ServiceHelper serviceHelper = (ServiceHelper) context.getBean("serviceHelper");
-        useEmployeeService(serviceHelper.getEmployeeService());
+//        useEmployeeService(serviceHelper.getEmployeeService());
 //        deleteNeedlessEmployees(serviceHelper.getEmployeeService(), 10);
+        useEmployeeXmlService(serviceHelper);
         LOG.trace("Выход из приложения");
     }
 
@@ -92,5 +93,17 @@ public class SpringRunner {
     private static void deleteNeedlessEmployees(EmployeeService employeeService, int fromId) {
         System.out.println(String.format("Удаляются сотрудники с id, большим или равным %d", fromId));
         System.out.println(String.format("Удалено сотрудников: %d", employeeService.deleteEmployeesStartingFromId(fromId)));
+    }
+
+    private static void useEmployeeXmlService(ServiceHelper serviceHelper) {
+        EmployeeService employeeService = serviceHelper.getEmployeeService();
+        EmployeeXmlService employeeXmlService = serviceHelper.getEmployeeXmlService();
+
+        System.out.println("Сохраняем сотрудников из базы в xml-файле...");
+        employeeXmlService.saveEmployees(employeeService.getAllEmployees());
+        System.out.println("Список сотрудников, загруженных из xml-файла:");
+        for (Employee employee : employeeXmlService.loadEmployees()) {
+            System.out.println(employee);
+        }
     }
 }

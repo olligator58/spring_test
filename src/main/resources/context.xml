@@ -34,4 +34,6 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller"/>
+
 </beans>
