@@ -1,6 +1,7 @@
 package service;
 
 import domain.Employee;
+import domain.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class EmployeeXmlService {
     @Autowired
     public void setUnmarshaller(Unmarshaller unmarshaller) {
         this.unmarshaller = unmarshaller;
-        ((XStreamMarshaller) this.unmarshaller).getXStream().allowTypes(new Class[]{Employee.class});
+        ((XStreamMarshaller) this.unmarshaller).getXStream().allowTypes(new Class[]{Employee.class, Task.class});
     }
 
     public void saveEmployees(List<Employee> employees) {

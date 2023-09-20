@@ -10,6 +10,8 @@ public class ServiceHelper {
     private EmployeeService employeeService;
     @Resource
     private EmployeeXmlService employeeXmlService;
+    @Resource
+    private EmployeeHibernateService employeeHibernateService;
 
     public EmployeeService getEmployeeService() {
         return employeeService;
@@ -17,5 +19,9 @@ public class ServiceHelper {
 
     public EmployeeXmlService getEmployeeXmlService() {
         return employeeXmlService;
+    }
+
+    public EmployeeHibernateService getEmployeeHibernateService() {
+        return employeeHibernateService;
     }
 }

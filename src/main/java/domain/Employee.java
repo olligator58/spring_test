@@ -1,9 +1,12 @@
 package domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "employee")
 public class Employee {
     private int id;
     private String name;
@@ -13,6 +16,8 @@ public class Employee {
     private Date joinDate;
     private List<Task> tasks = new ArrayList<>();
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -53,6 +58,7 @@ public class Employee {
         this.age = age;
     }
 
+    @Column(name = "join_date")
     public Date getJoinDate() {
         return joinDate;
     }
@@ -61,6 +67,7 @@ public class Employee {
         this.joinDate = joinDate;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Task> getTasks() {
         return tasks;
     }
@@ -76,7 +83,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "model.Employee{" +
+        return "Employee{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", occupation='" + occupation + '\'' +

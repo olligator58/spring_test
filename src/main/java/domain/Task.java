@@ -1,13 +1,18 @@
 package domain;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "task")
 public class Task {
     private int id;
     private String name;
     private Date deadline;
     private Employee employee;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -32,6 +37,8 @@ public class Task {
         this.deadline = deadline;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
     public Employee getEmployee() {
         return employee;
     }
